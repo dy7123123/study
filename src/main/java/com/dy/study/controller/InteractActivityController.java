@@ -5,9 +5,12 @@ import com.dy.study.dto.CreateActivityRequest;
 import com.dy.study.pojo.PageBean;
 import com.dy.study.pojo.Result;
 import com.dy.study.service.InteractActivityService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @Slf4j
@@ -39,6 +42,17 @@ public class InteractActivityController {
         } catch (Exception e) {
             log.error("活动创建失败: {}", e.getMessage(), e);
             return Result.error("活动创建失败");
+        }
+    }
+
+    // 导出活动数据
+    @GetMapping("/export")
+    public void exportActivityData(HttpServletResponse response) {
+        try {
+            log.info("接收到导出互动营销活动数据的请求...");
+            interactActivityService.exportActivityData(response);
+        } catch (IOException e) {
+            log.error("导出活动数据失败：", e);
         }
     }
 
