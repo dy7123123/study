@@ -34,6 +34,12 @@ public class InteractActivityServiceImpl implements InteractActivityService {
     @Autowired
     private ActivityAwardMapper activityAwardMapper;
 
+    /**
+     * 分页查询活动列表
+     * @param page 页码
+     * @param pageSize 每页大小
+     * @return 分页结果
+     */
     @Override
     public PageBean page(Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -46,6 +52,12 @@ public class InteractActivityServiceImpl implements InteractActivityService {
         return pageBean;
     }
 
+    /**
+     * 创建活动 事务管理
+     * @param activity 活动信息
+     * @param rules 规则列表
+     * @param awards 奖项列表
+     */
     @Override
     @Transactional
     public void createActivity(InteractActivity activity, List<ActivityRule> rules, List<ActivityAward> awards) {
@@ -133,4 +145,17 @@ public class InteractActivityServiceImpl implements InteractActivityService {
         return headerStyle;
     }
 
+    /**
+     * 根据活动状态查询活动列表
+     */
+    public List<InteractActivity> getActivitiesByStatus(Integer status) {
+        return interactActivityMapper.getActivitiesByStatus(status);
+    }
+
+    /**
+     * 更新活动列表活动状态
+     */
+    public void updateActivity(InteractActivity activity) {
+        interactActivityMapper.updateStatus(activity);
+    }
 }

@@ -15,4 +15,9 @@ public interface InteractActivityService {
     void createActivity(InteractActivity activity, List<ActivityRule> rules, List<ActivityAward> awards);
 
     void exportActivityData(HttpServletResponse response) throws IOException;
+
+    List<InteractActivity> getActivitiesByStatus(Integer status);
+
+    void updateActivity(InteractActivity activity);
+
 }

@@ -5,6 +5,7 @@ import com.dy.study.pojo.InteractActivity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -25,4 +26,10 @@ public interface InteractActivityMapper {
             "GROUP BY ia.activity_id, ia.activity_name, ia.start_time, ia.end_time, ia.status, ia.creator, ia.created_time")
     List<ActivityExportDTO> getAllActivityInfo();
 
+    @Select("SELECT * FROM interact_activity WHERE status = #{status}")
+    List<InteractActivity> getActivitiesByStatus(Integer status);
+
+
+    @Update("UPDATE interact_activity SET status = #{status}, modified_time = #{modifiedTime} WHERE activity_id = #{activityId}")
+    void updateStatus(InteractActivity activity);
 }
